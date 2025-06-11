@@ -6,11 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="manifest" href="manifest.json">
     <link rel="stylesheet" href="style.css">
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDKp39_7moDynv-yzrxAvwL-fyisUvjtxg"></script>
 </head>
 <body>
     <h1>Radar Uyarı Sistemi</h1>
-    <p id="status">Konum alınıyor...</p>
-    <p>Hız: <span id="speed">0</span> km/h</p>
+    <div id="map"></div>
+    <div id="overlay">
+        <p>Hız: <span id="speed">0</span> km/h</p>
+        <p>Limit: <span id="limit">--</span> km/h</p>
+        <p id="alert"></p>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
