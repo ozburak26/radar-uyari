@@ -6,12 +6,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="manifest" href="manifest.json">
   <link rel="stylesheet" href="style.css">
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDKp39_7moDynv-yzrxAvwL-fyisUvjtxg&libraries=places"></script>
+  <script async
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDKp39_7moDynv-yzrxAvwL-fyisUvjtxg&libraries=maps,marker,places">
+  </script>
+  <script async src="https://unpkg.com/@googlemaps/markerclusterer/dist/index.min.js"></script>
+  <script async src="https://www.gstatic.com/maps-platform/places-autocomplete-element/v1/places-autocomplete-element.js"></script>
 </head>
 <body>
   <div id="inputs">
-    <input id="start" type="text" placeholder="Başlangıç Noktası">
-    <input id="end" type="text" placeholder="Varış Noktası">
+    <input id="start" placeholder="Başlangıç Noktası" type="text" />
+    <gmpx-placeautocomplete for="start"></gmpx-placeautocomplete>
+
+    <input id="end" placeholder="Varış Noktası" type="text" />
+    <gmpx-placeautocomplete for="end"></gmpx-placeautocomplete>
+
     <button onclick="calcRoute()">Rota Oluştur</button>
   </div>
   <div id="map"></div>

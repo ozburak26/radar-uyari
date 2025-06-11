@@ -18,12 +18,6 @@ function initMap() {
     new google.maps.Marker({ position: r, map: map, title: r.title });
   });
 
-  const startInput = document.getElementById("start");
-  const endInput = document.getElementById("end");
-
-  new google.maps.places.Autocomplete(startInput);
-  new google.maps.places.Autocomplete(endInput);
-
   navigator.geolocation.getCurrentPosition(pos => {
     userLocation = {
       lat: pos.coords.latitude,
@@ -94,4 +88,4 @@ function getDistance(lat1, lon1, lat2, lon2) {
   return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
 }
 
-window.onload = initMap;
+window.initMap = initMap;
