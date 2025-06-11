@@ -1,0 +1,9 @@
+{
+  "name": "Radar Uyarı Sistemi",
+  "short_name": "RadarUyari",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "description": "Radar uyarı uygulaması",
+  "icons": []
+}
