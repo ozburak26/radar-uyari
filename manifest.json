@@ -1,9 +1,9 @@
 {
-  "name": "Radar Navigasyon",
-  "short_name": "RadarNav",
+  "name": "Radar Navigasyon Gelişmiş",
+  "short_name": "RadarNav+",
   "start_url": "index.html",
   "display": "standalone",
   "background_color": "#ffffff",
-  "description": "Radar uyarı sistemi",
+  "description": "Alternatif rotalı radar uyarı sistemi",
   "icons": []
 }

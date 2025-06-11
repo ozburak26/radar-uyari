@@ -1,25 +1,25 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <title>Radar Navigasyon</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <title>Radar Navigasyon Gelişmiş</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
   <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDKp39_7moDynv-yzrxAvwL-fyisUvjtxg&libraries=places&callback=initMap">
   </script>
 </head>
 <body>
-  <div id="inputs">
-    <input id="start" placeholder="Başlangıç Noktası" type="text" />
-    <input id="end" placeholder="Varış Noktası" type="text" />
-    <button onclick="calcRoute()">Rota Oluştur</button>
+  <div id="controls">
+    <input id="start" placeholder="Başlangıç Noktası" />
+    <input id="end" placeholder="Varış Noktası" />
+    <button onclick="calculateAndDisplayRoutes()">Rota Oluştur</button>
   </div>
   <div id="map"></div>
-  <div id="overlay">
-    <p>Hız: <span id="speed">0</span> km/h</p>
-    <p id="alert"></p>
+  <div id="hud">
+    <div>Hız: <span id="speed">0</span> km/h</div>
+    <div>Limit: <span id="speedLimit">50</span> km/h</div>
+    <div id="alert"></div>
   </div>
   <audio id="alertSound" src="alert.mp3" preload="auto"></audio>
   <script src="script.js"></script>
