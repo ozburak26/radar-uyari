@@ -1,27 +1,40 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8" />
-  <title>Radar Navigasyon Gelişmiş</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="style.css" />
-  <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDKp39_7moDynv-yzrxAvwL-fyisUvjtxg&libraries=places&callback=initMap">
+  <meta charset="UTF-8">
+  <title>Radar Uyarı Sistemi</title>
+  <style>
+    html, body, #map {{
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }}
+    #panel {{
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: white;
+      z-index: 5;
+      padding: 10px;
+      border-radius: 10px;
+      box-shadow: 0 2px 6px rgba(0,0,0,.3);
+    }}
+  </style>
+  <script type="module"
+    src="https://www.gstatic.com/maps-platform/places-autocomplete-element/v1/places-autocomplete-element.js">
   </script>
 </head>
 <body>
-  <div id="controls">
-    <input id="start" placeholder="Başlangıç Noktası" />
-    <input id="end" placeholder="Varış Noktası" />
-    <button onclick="calculateAndDisplayRoutes()">Rota Oluştur</button>
+  <div id="panel">
+    <place-autocomplete id="start" input-placeholder="Başlangıç Noktası"></place-autocomplete><br><br>
+    <place-autocomplete id="end" input-placeholder="Varış Noktası"></place-autocomplete><br><br>
+    <button onclick="calcRoute()">Rota Oluştur</button>
   </div>
   <div id="map"></div>
-  <div id="hud">
-    <div>Hız: <span id="speed">0</span> km/h</div>
-    <div>Limit: <span id="speedLimit">50</span> km/h</div>
-    <div id="alert"></div>
-  </div>
-  <audio id="alertSound" src="alert.mp3" preload="auto"></audio>
+
   <script src="script.js"></script>
+  <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDKp39_7moDynv-yzrxAvwL-fyisUvjtxg&libraries=maps,marker,geometry&callback=initMap">
+  </script>
 </body>
 </html>
