@@ -1,21 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>Radar Uyarı Sistemi</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="manifest" href="manifest.json">
-    <link rel="stylesheet" href="style.css">
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDKp39_7moDynv-yzrxAvwL-fyisUvjtxg"></script>
+  <meta charset="UTF-8">
+  <title>Radar Navigasyon</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDKp39_7moDynv-yzrxAvwL-fyisUvjtxg&libraries=places"></script>
 </head>
 <body>
-    <h1>Radar Uyarı Sistemi</h1>
-    <div id="map"></div>
-    <div id="overlay">
-        <p>Hız: <span id="speed">0</span> km/h</p>
-        <p>Limit: <span id="limit">--</span> km/h</p>
-        <p id="alert"></p>
-    </div>
-    <script src="script.js"></script>
+  <div id="inputs">
+    <input id="start" type="text" placeholder="Başlangıç Noktası">
+    <input id="end" type="text" placeholder="Varış Noktası">
+    <button onclick="calcRoute()">Rota Oluştur</button>
+  </div>
+  <div id="map"></div>
+  <div id="overlay">
+    <p>Hız: <span id="speed">0</span> km/h</p>
+    <p id="alert"></p>
+  </div>
+  <audio id="alertSound" src="alert.mp3" preload="auto"></audio>
+  <script src="script.js"></script>
 </body>
 </html>
