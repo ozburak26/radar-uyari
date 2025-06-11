@@ -1,4 +1,6 @@
-let map, directionsService, directionsRenderer, marker;
+let map, directionsService, directionsRenderer;
+let userLocation = null;
+
 const radarPoints = [
   {lat: 41.015137, lng: 28.979530, title: "Radar 1"},
   {lat: 39.920770, lng: 32.854110, title: "Radar 2"}
@@ -16,15 +18,33 @@ function initMap() {
     new google.maps.Marker({ position: r, map: map, title: r.title });
   });
 
+  const startInput = document.getElementById("start");
+  const endInput = document.getElementById("end");
+
+  new google.maps.places.Autocomplete(startInput);
+  new google.maps.places.Autocomplete(endInput);
+
+  navigator.geolocation.getCurrentPosition(pos => {
+    userLocation = {
+      lat: pos.coords.latitude,
+      lng: pos.coords.longitude
+    };
+  });
+
   trackUser();
 }
 
 function calcRoute() {
-  const start = document.getElementById("start").value;
-  const end = document.getElementById("end").value;
+  let startVal = document.getElementById("start").value;
+  const endVal = document.getElementById("end").value;
+
+  if (startVal.trim() === "" && userLocation) {
+    startVal = new google.maps.LatLng(userLocation.lat, userLocation.lng);
+  }
+
   directionsService.route({
-    origin: start,
-    destination: end,
+    origin: startVal,
+    destination: endVal,
     travelMode: google.maps.TravelMode.DRIVING
   }, (response, status) => {
     if (status === 'OK') {
