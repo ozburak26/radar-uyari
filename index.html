@@ -6,23 +6,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="manifest" href="manifest.json">
   <link rel="stylesheet" href="style.css">
-  <!-- Load Maps JS API with Places library -->
   <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDKp39_7moDynv-yzrxAvwL-fyisUvjtxg&libraries=places&callback=initMap">
-  </script>
-  <!-- Load the new Places Autocomplete Web Component -->
-  <script type="module"
-    src="https://unpkg.com/@googlemaps/places-autocomplete-element@1.5.0/dist/places-autocomplete-element.min.js">
   </script>
 </head>
 <body>
   <div id="inputs">
     <input id="start" placeholder="Başlangıç Noktası" type="text" />
-    <google-places-autocomplete input="start" placeholder="Öneri"></google-places-autocomplete>
-
     <input id="end" placeholder="Varış Noktası" type="text" />
-    <google-places-autocomplete input="end" placeholder="Öneri"></google-places-autocomplete>
-
     <button onclick="calcRoute()">Rota Oluştur</button>
   </div>
   <div id="map"></div>
