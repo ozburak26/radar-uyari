@@ -4,6 +4,6 @@
   "start_url": "index.html",
   "display": "standalone",
   "background_color": "#ffffff",
-  "description": "Radar uyarılı navigasyon",
+  "description": "Adres önerisi + radar uyarı",
   "icons": []
 }

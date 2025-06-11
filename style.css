@@ -10,6 +10,7 @@ html, body {
 #inputs {
   position: absolute; top: 10px; left: 10px;
   z-index: 5; background: white; padding: 10px; border-radius: 8px;
+  display: flex; gap: 5px; align-items: baseline;
 }
 #overlay {
   position: absolute; bottom: 10px; left: 10px;
