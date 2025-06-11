@@ -1,5 +1,12 @@
-body, html { margin: 0; height: 100%; font-family: Arial; }
-#map { height: 100%; width: 100%; }
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+#map {
+  height: 100%;
+  width: 100%;
+}
 #inputs {
   position: absolute; top: 10px; left: 10px;
   z-index: 5; background: white; padding: 10px; border-radius: 8px;

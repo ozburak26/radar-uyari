@@ -4,6 +4,6 @@
   "start_url": "index.html",
   "display": "standalone",
   "background_color": "#ffffff",
-  "description": "Yeni Places API ile radar uyarılı navigasyon",
+  "description": "Radar uyarılı navigasyon",
   "icons": []
 }
