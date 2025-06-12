@@ -1,40 +1,125 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Radar Uyarı Sistemi</title>
+  <title>Radar Uyarı Navigasyon</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    html, body, #map {{
-      height: 100%;
-      margin: 0;
-      padding: 0;
-    }}
-    #panel {{
+    #map {
+      height: 100vh;
+      width: 100%;
+    }
+    .overlay {
       position: absolute;
       top: 10px;
-      left: 10px;
-      background: white;
-      z-index: 5;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255,255,255,0.9);
       padding: 10px;
-      border-radius: 10px;
-      box-shadow: 0 2px 6px rgba(0,0,0,.3);
-    }}
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    #infoPanel {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.7);
+      color: #fff;
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-size: 14px;
+    }
   </style>
-  <script type="module"
-    src="https://www.gstatic.com/maps-platform/places-autocomplete-element/v1/places-autocomplete-element.js">
+  <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDKp39_7moDynv-yzrxAvwL-fyisUvjtxg&libraries=places,geometry&callback=initMap">
   </script>
 </head>
 <body>
-  <div id="panel">
-    <place-autocomplete id="start" input-placeholder="Başlangıç Noktası"></place-autocomplete><br><br>
-    <place-autocomplete id="end" input-placeholder="Varış Noktası"></place-autocomplete><br><br>
+  <div class="overlay">
+    <gmpx-place-autocomplete id="origin" placeholder="Başlangıç Noktası"></gmpx-place-autocomplete>
+    <gmpx-place-autocomplete id="destination" placeholder="Varış Noktası"></gmpx-place-autocomplete>
     <button onclick="calcRoute()">Rota Oluştur</button>
   </div>
   <div id="map"></div>
+  <div id="infoPanel">Hız: -- km/s | Limit: -- km/s</div>
 
-  <script src="script.js"></script>
-  <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDKp39_7moDynv-yzrxAvwL-fyisUvjtxg&libraries=maps,marker,geometry&callback=initMap">
+  <script type="module">
+    import "https://unpkg.com/@googlemaps/places-autocomplete-element@1.5.0/dist/places-autocomplete-element.min.js";
+
+    let map, directionsService, directionsRenderer;
+    const radarPoints = [
+      { lat: 40.99, lng: 29.13 },
+      { lat: 41.00, lng: 29.11 }
+    ];
+
+    function playAlert(distance) {
+      let message = `Radar ${distance} metre yakında!`;
+      const audio = new SpeechSynthesisUtterance(message);
+      speechSynthesis.speak(audio);
+    }
+
+    window.initMap = () => {
+      map = new google.maps.Map(document.getElementById("map"), {
+        center: { lat: 41.0082, lng: 28.9784 },
+        zoom: 12,
+      });
+
+      directionsService = new google.maps.DirectionsService();
+      directionsRenderer = new google.maps.DirectionsRenderer({ map });
+
+      // Radar noktaları
+      radarPoints.forEach(loc => {
+        new google.maps.marker.AdvancedMarkerElement({
+          position: loc,
+          map,
+          title: "Radar Noktası"
+        });
+      });
+    };
+
+    window.calcRoute = () => {
+      const origin = document.querySelector("#origin").value;
+      const destination = document.querySelector("#destination").value;
+
+      directionsService.route({
+        origin,
+        destination,
+        travelMode: google.maps.TravelMode.DRIVING,
+        provideRouteAlternatives: true,
+      }, (res, status) => {
+        if (status === "OK") {
+          directionsRenderer.setDirections(res);
+
+          const path = res.routes[0].overview_path;
+          const carMarker = new google.maps.Marker({ map });
+          let i = 0;
+
+          const interval = setInterval(() => {
+            if (i >= path.length) return clearInterval(interval);
+            const pos = path[i++];
+            carMarker.setPosition(pos);
+            map.panTo(pos);
+
+            radarPoints.forEach(pt => {
+              const dist = google.maps.geometry.spherical.computeDistanceBetween(
+                new google.maps.LatLng(pos),
+                new google.maps.LatLng(pt)
+              );
+              if (dist < 1000 && dist > 950) playAlert(1000);
+              else if (dist < 500 && dist > 450) playAlert(500);
+              else if (dist < 200 && dist > 150) playAlert(200);
+              else if (dist < 50 && dist > 30) playAlert(50);
+              else if (dist < 10) playAlert(10);
+            });
+          }, 800);
+        } else {
+          alert("Rota oluşturulamadı: " + status);
+        }
+      });
+    };
   </script>
 </body>
 </html>
